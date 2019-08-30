@@ -22,7 +22,7 @@ node_net_embedding.txt: pre-trained node embedding by network embedding
 het_neigh_train.txt: generated neighbor set of each node by random walk with re-start 
 het_random_walk.txt: generated random walks as node sequences (corpus) for model training
 
-<4> Model evaluation and raw data processing code will be uploaded late
+<4> Model evaluation and raw data processing code will be uploaded later
 
 <5> If you find code useful, please consider citing our work.
 
