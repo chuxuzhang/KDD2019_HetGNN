@@ -28,19 +28,33 @@ het_random_walk.txt: generated random walks as node sequences (corpus) for model
 
 inproceedings{Zhang:2019:HGN:3292500.3330961,
  author = {Zhang, Chuxu and Song, Dongjin and Huang, Chao and Swami, Ananthram and Chawla, Nitesh V.},
+ 
  title = {Heterogeneous Graph Neural Network},
+ 
  booktitle = {Proceedings of the 25th ACM SIGKDD International Conference on Knowledge Discovery \& Data Mining},
+ 
  series = {KDD '19},
+ 
  year = {2019},
+ 
  isbn = {978-1-4503-6201-6},
+ 
  location = {Anchorage, AK, USA},
+ 
  pages = {793--803},
+ 
  numpages = {11},
+ 
  url = {http://doi.acm.org/10.1145/3292500.3330961},
+ 
  doi = {10.1145/3292500.3330961},
+ 
  acmid = {3330961},
+ 
  publisher = {ACM},
+ 
  address = {New York, NY, USA},
+ 
  keywords = {graph embedding, graph neural networks, heterogeneous graphs},
 }
 
