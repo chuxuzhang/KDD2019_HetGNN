@@ -192,7 +192,7 @@ class HetAgg(nn.Module):
 		atten_w = self.softmax(atten_w).view(len(c_agg_batch), 1, 4)
 
 		#weighted combination
-		concate_embed = torch.cat((a_agg_batch, a_agg_batch, p_agg_batch,\
+		concate_embed = torch.cat((c_agg_batch, a_agg_batch, p_agg_batch,\
 		 v_agg_batch), 1).view(len(c_agg_batch), 4, self.embed_d)
 		weight_agg_batch = torch.bmm(atten_w, concate_embed).view(len(c_agg_batch), self.embed_d)
 
