@@ -272,27 +272,27 @@ class HetAgg(nn.Module):
 							embed_file.write(str(out_temp[k][l]) + " ")
 						embed_file.write(str(out_temp[k][-1]) + "\n")
 
+				if i == 0:
+					id_batch = self.a_train_id_list[batch_number * save_batch_s : -1]
+					out_temp = self.node_het_agg(id_batch, 1) 
+				elif i == 1:
+					id_batch = self.p_train_id_list[batch_number * save_batch_s : -1]
+					out_temp = self.node_het_agg(id_batch, 2) 
+				else:
+					id_batch = self.v_train_id_list[batch_number * save_batch_s : -1]
+					out_temp = self.node_het_agg(id_batch, 3) 
+				out_temp = out_temp.data.cpu().numpy()
+				for k in range(len(id_batch)):
+					index = id_batch[k]
 					if i == 0:
-						id_batch = self.a_train_id_list[batch_number * save_batch_s : -1]
-						out_temp = self.node_het_agg(id_batch, 1) 
+						embed_file.write('a' + str(index) + " ")
 					elif i == 1:
-						id_batch = self.p_train_id_list[batch_number * save_batch_s : -1]
-						out_temp = self.node_het_agg(id_batch, 2) 
+						embed_file.write('p' + str(index) + " ")
 					else:
-						id_batch = self.v_train_id_list[batch_number * save_batch_s : -1]
-						out_temp = self.node_het_agg(id_batch, 3) 
-					out_temp = out_temp.data.cpu().numpy()
-					for k in range(len(id_batch)):
-						index = id_batch[k]
-						if i == 0:
-							embed_file.write('a' + str(index) + " ")
-						elif i == 1:
-							embed_file.write('p' + str(index) + " ")
-						else:
-							embed_file.write('v' + str(index) + " ")
-						for l in range(embed_d - 1):
-							embed_file.write(str(out_temp[k][l]) + " ")
-						embed_file.write(str(out_temp[k][-1]) + "\n")
+						embed_file.write('v' + str(index) + " ")
+					for l in range(embed_d - 1):
+						embed_file.write(str(out_temp[k][l]) + " ")
+					embed_file.write(str(out_temp[k][-1]) + "\n")
 			embed_file.close()
 			return [], [], []
 
@@ -328,9 +328,7 @@ def cross_entropy_loss(c_embed_batch, pos_embed_batch, neg_embed_batch, embed_d)
 	sum_n = F.logsigmoid(out_n)
 	loss_sum = - (sum_p + sum_n)
 
-	loss_sum = loss_sum.sum() / batch_size
+	#loss_sum = loss_sum.sum() / batch_size
 
-	return loss_sum
-
-	#return loss_sum.sum()
+	return loss_sum.mean()
 

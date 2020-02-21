@@ -18,11 +18,14 @@ class model_class(object):
 		self.gpu = args.cuda
 
 		input_data = data_generator.input_data(args = self.args)
+		#input_data.gen_het_rand_walk()
+
 		self.input_data = input_data
 
 		if self.args.train_test_label == 2: #generate neighbor set of each node
 			input_data.het_walk_restart()
 			print ("neighbor set generation finish")
+			exit(0)
 
 		feature_list = [input_data.p_abstract_embed, input_data.p_title_embed,\
 		input_data.p_v_net_embed, input_data.p_a_net_embed, input_data.p_ref_net_embed,\
@@ -57,6 +60,9 @@ class model_class(object):
 
 	def model_train(self):
 		print ('model training ...')
+		if self.args.checkpoint != '':
+			self.model.load_state_dict(torch.load(self.args.checkpoint))
+		
 		self.model.train()
 		mini_batch_s = self.args.mini_batch_s
 		embed_d = self.args.embed_d
@@ -69,7 +75,7 @@ class model_class(object):
 				if len(triple_list[ii]) < min_len:
 					min_len = len(triple_list[ii])
 			batch_n = int(min_len / mini_batch_s)
-
+			print (batch_n)
 			for k in range(batch_n):
 				c_out = torch.zeros([len(triple_list), mini_batch_s, embed_d])
 				p_out = torch.zeros([len(triple_list), mini_batch_s, embed_d])

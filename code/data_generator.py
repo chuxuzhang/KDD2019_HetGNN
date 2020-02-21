@@ -59,7 +59,7 @@ class input_data(object):
 			p_neigh_list_train[i] += p_a_list_train[i]
 			p_neigh_list_train[i] += p_p_cite_list_train[i] 
 			p_neigh_list_train[i].append('v' + str(p_v[i]))
-		#print p_neigh_list_train[83]
+		#print p_neigh_list_train[11846]
 
 		self.a_p_list_train =  a_p_list_train
 		self.p_a_list_train = p_a_list_train
@@ -365,11 +365,11 @@ class input_data(object):
 		for i in range(3):
 			for j in range(node_n[i]):
 				if i == 0:
-					a_neigh_list_train[i] = list(a_neigh_list_train[i])
+					a_neigh_list_train[j] = list(a_neigh_list_train[j])
 				elif i == 1:
 					p_neigh_list_train[j] = list(p_neigh_list_train[j])
 				else:
-					v_neigh_list_train[k] = list(v_neigh_list_train[k])
+					v_neigh_list_train[j] = list(v_neigh_list_train[j])
 
 		neigh_f = open(self.args.data_path + "het_neigh_train.txt", "w")
 		for i in range(3):
@@ -446,7 +446,7 @@ class input_data(object):
 		het_walk_f.close()
 
 		for i in range(len(total_triple_n)):
-			total_triple_n[i] = self.args.batch_s / total_triple_n[i]
+			total_triple_n[i] = self.args.batch_s / (total_triple_n[i] * 10)
 		print("sampling ratio computing finish.")
 
 		return total_triple_n
@@ -544,4 +544,7 @@ class input_data(object):
 		het_walk_f.close()
 
 		return triple_list
+
+
+
 
